@@ -18,7 +18,7 @@ class ProductListViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.fetchProducts()
-}
+    }
     
     private func setupUI() {
         view.backgroundColor = .white
@@ -82,11 +82,20 @@ extension ProductListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 140
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        print("Seleccionaste \(viewModel.products[indexPath.row].title)")
+        
+        let selectedProduct = viewModel.products[indexPath.row]
+        let detailVC = ProductDetailViewController(productId: selectedProduct.id)
+
+        let backItem = UIBarButtonItem()
+        backItem.title = ""
+        navigationItem.backBarButtonItem = backItem
+        
+        navigationController?.pushViewController(detailVC, animated: true)
     }
+
 }
 
 // MARK: - UISearchBarDelegate
