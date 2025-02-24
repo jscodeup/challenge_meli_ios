@@ -16,7 +16,7 @@ class ProductListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //fatalError("Crash de prueba enviado a Crashlytics")
+        //fatalError("Test Crashlytics Crash")
         setupUI()
         setupBindings()
         viewModel.fetchProducts()

@@ -40,6 +40,11 @@
 		04FED0AD2D6B9F0C006C371C /* Exceptions for "challenge_meli_ios" folder in "challenge_meli_ios" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				docs/adrs/001_mvvm_vs_mvc.md,
+				docs/adrs/002_singleton_for_network.md,
+				docs/adrs/003_firebase_crashlytics.md,
+				docs/adrs/004_kingfisher_image_loading.md,
+				docs/rfc/001_mvvm_vs_mvc.md,
 				Info.plist,
 			);
 			target = 04FED0842D6B9F0A006C371C /* challenge_meli_ios */;

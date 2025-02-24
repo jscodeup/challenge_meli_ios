@@ -96,7 +96,7 @@ Both **Unit and UI tests** have been developed to validate the application's fun
 
 ## 📌 How to Run the Project
 
-1️⃣ **Clone the repository:**
+1️⃣ Clone the repository:
 ```sh
 git clone https://github.com/jscodeup/challenge_meli_ios.git
 cd challenge_meli_ios
