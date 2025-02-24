@@ -5,6 +5,7 @@
 //  Created by Mac on 23/02/25.
 //
 import UIKit
+import FirebaseCrashlytics
 
 class ProductListViewController: UIViewController {
     
@@ -15,6 +16,7 @@ class ProductListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //fatalError("Crash de prueba enviado a Crashlytics")
         setupUI()
         setupBindings()
         viewModel.fetchProducts()
