@@ -103,7 +103,7 @@ class ProductDetailViewController: UIViewController {
 
     private func updateUI(with product: ProductDetail) {
         titleLabel.text = product.title
-        priceLabel.text = "$\(product.price)"
+        priceLabel.text = NumberFormatterHelper.shared.formatPrice(product.price)
         brandLabel.text = "Marca: \(product.brand ?? "No especificado")"
         locationLabel.text = "Ubicación: \(product.location ?? "No disponible")"
         warrantyLabel.text = "Garantía: \(product.warranty ?? "No especificada")"

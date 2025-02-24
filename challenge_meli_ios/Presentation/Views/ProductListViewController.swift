@@ -88,7 +88,7 @@ extension ProductListViewController: UITableViewDelegate {
         
         let selectedProduct = viewModel.products[indexPath.row]
         let detailVC = ProductDetailViewController(productId: selectedProduct.id)
-
+        print("ID:", selectedProduct.id)
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem

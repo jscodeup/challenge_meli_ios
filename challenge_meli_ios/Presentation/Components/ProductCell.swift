@@ -62,7 +62,7 @@ class ProductCell: UITableViewCell {
 
     func configure(with product: Product) {
         titleLabel.text = product.title
-        priceLabel.text = "$\(product.price)"
+        priceLabel.text = NumberFormatterHelper.shared.formatPrice(product.price)
 
         let secureThumbnail = product.thumbnail.replacingOccurrences(of: "http://", with: "https://")
         if let url = URL(string: secureThumbnail) {

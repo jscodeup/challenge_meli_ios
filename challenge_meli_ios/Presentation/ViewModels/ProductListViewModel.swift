@@ -27,7 +27,7 @@ class ProductListViewModel {
     
     //Obtiene los productos desde la API y actualiza la lista
     func fetchProducts(for query: String = "") {
-        let searchQuery = query.isEmpty ? "MCO" : query
+        let searchQuery = query.isEmpty ? "QUERY" : query
         
         productService.searchProducts(query: searchQuery) { [weak self] result in
             switch result {
