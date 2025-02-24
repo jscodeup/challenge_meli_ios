@@ -59,6 +59,14 @@ class ProductListViewController: UIViewController {
                 self?.tableView.reloadData()
             }
         }
+        viewModel.onError = { [weak self] message in
+                DispatchQueue.main.async {
+                    let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self?.present(alert, animated: true)
+                }
+            }
+
     }
 }
 

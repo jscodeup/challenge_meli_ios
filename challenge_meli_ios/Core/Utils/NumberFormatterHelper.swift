@@ -8,19 +8,19 @@ import Foundation
 
 class NumberFormatterHelper {
     static let shared = NumberFormatterHelper()
-    
-    private let formatter: NumberFormatter
-    
-    private init() {
-        formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "COP"
-        formatter.locale = Locale(identifier: "es_CO")
-        formatter.maximumFractionDigits = 0 
-    }
-    
+
+    private init() {}
+
     func formatPrice(_ price: Double) -> String {
-        return formatter.string(from: NSNumber(value: price)) ?? "$\(Int(price))"
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencySymbol = "$"
+        formatter.locale = Locale(identifier: "es_CO")
+        formatter.maximumFractionDigits = 0
+        formatter.usesGroupingSeparator = true
+        
+        // 🔹 Asegurar que no haya espacios no deseados
+        let formattedString = formatter.string(from: NSNumber(value: price)) ?? "$\(Int(price))"
+        return formattedString.replacingOccurrences(of: "\u{00A0}", with: "")
     }
 }
-

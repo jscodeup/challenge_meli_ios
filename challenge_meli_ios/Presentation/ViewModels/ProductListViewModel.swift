@@ -1,16 +1,10 @@
-//
-//  ProductListViewModel.swift
-//  challenge_meli_ios
-//
-//  Created by Mac on 23/02/25.
-//
-
 import Foundation
 
 class ProductListViewModel {
     
     // Closure para notificar cambios en los productos
     var onProductsUpdated: (() -> Void)?
+    var onError: ((String) -> Void)?
     
     // Lista de productos obtenida del servicio
     private(set) var products: [Product] = [] {
@@ -18,14 +12,14 @@ class ProductListViewModel {
             onProductsUpdated?()
         }
     }
-
-    private let productService: ProductService
-
-    init(productService: ProductService = ProductService()) {
+    
+    private let productService: ProductRepository
+    
+    init(productService: ProductRepository = ProductService()) { 
         self.productService = productService
     }
     
-    //Obtiene los productos desde la API y actualiza la lista
+    // Obtiene los productos desde la API y actualiza la lista
     func fetchProducts(for query: String = "") {
         let searchQuery = query.isEmpty ? "QUERY" : query
         
@@ -34,6 +28,7 @@ class ProductListViewModel {
             case .success(let products):
                 self?.products = products
             case .failure(let error):
+                self?.onError?("No se pudieron cargar los productos. Verifica tu conexión.")
                 print("Error al obtener productos: \(error.localizedDescription)")
             }
         }

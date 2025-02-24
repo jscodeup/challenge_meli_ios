@@ -35,6 +35,7 @@ class ProductDetailViewController: UIViewController {
         setupUI()
         setupBindings()
         viewModel.fetchProductDetail(productId: productId)
+        titleLabel.accessibilityIdentifier = "detailTitle"
     }
 
     private func setupUI() {

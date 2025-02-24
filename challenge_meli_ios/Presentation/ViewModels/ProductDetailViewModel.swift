@@ -8,15 +8,17 @@ import Foundation
 
 class ProductDetailViewModel {
     private let productDetailService = ProductDetailAPI()
+    var productDetail: ProductDetail?
     var onDetailLoaded: ((ProductDetail) -> Void)?
     var onError: ((String) -> Void)?
-    
+
     func fetchProductDetail(productId: String) {
         productDetailService.fetchProductDetail(productId: productId) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let product):
-                    self?.onDetailLoaded?(product)
+                    self?.productDetail = product
+                    self?.onDetailLoaded?(product) 
                 case .failure(let error):
                     self?.onError?(error.localizedDescription)
                 }
@@ -24,4 +26,3 @@ class ProductDetailViewModel {
         }
     }
 }
-

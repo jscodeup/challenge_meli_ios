@@ -209,6 +209,7 @@
 					};
 					04FED0A42D6B9F0C006C371C = {
 						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
 						TestTargetID = 04FED0842D6B9F0A006C371C;
 					};
 				};
@@ -511,6 +512,7 @@
 		04FED0B72D6B9F0C006C371C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -518,6 +520,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "co.com.juliansalazar.challenge-meli-iosUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = challenge_meli_ios;
@@ -527,6 +530,7 @@
 		04FED0B82D6B9F0C006C371C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
