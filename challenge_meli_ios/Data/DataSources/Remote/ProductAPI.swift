@@ -4,38 +4,20 @@
 //
 //  Created by Mac on 23/02/25.
 //
-
 import Foundation
 
 class ProductAPI {
-    private let baseURL = "https://api.mercadolibre.com/sites/MCO/search?q="
-    
     func fetchProducts(query: String, completion: @escaping (Result<[Product], Error>) -> Void) {
-        let urlString = "\(baseURL)\(query)"
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NSError(domain: "Invalid URL", code: -1)))
-            return
-        }
+        let endpoint = "/sites/MCO/search?q=\(query)"
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NSError(domain: "No data received", code: -1)))
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let response = try decoder.decode(MercadoLibreResponse.self, from: data)
+        NetworkManager.shared.fetchData(endpoint: endpoint) { (result: Result<MercadoLibreResponse, Error>) in
+            switch result {
+            case .success(let response):
                 completion(.success(response.results))
-            } catch {
+            case .failure(let error):
                 completion(.failure(error))
             }
-        }.resume()
+        }
     }
 }
 

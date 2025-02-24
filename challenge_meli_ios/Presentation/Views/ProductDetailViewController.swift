@@ -11,6 +11,9 @@ class ProductDetailViewController: UIViewController {
     private let viewModel = ProductDetailViewModel()
     private let productId: String
     
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+
     private let productImageView = UIImageView()
     private let titleLabel = UILabel()
     private let priceLabel = UILabel()
@@ -41,49 +44,54 @@ class ProductDetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .white
         title = "Detalles del Producto"
-        
+
+        // Configurar ScrollView
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
+
+        // Configuración de imagen
         productImageView.contentMode = .scaleAspectFit
         productImageView.translatesAutoresizingMaskIntoConstraints = false
+        productImageView.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        
+        // Configuración de labels
+        [titleLabel, priceLabel, brandLabel, locationLabel, warrantyLabel, conditionLabel, mercadoPagoLabel, freeShippingLabel].forEach {
+            $0.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+            $0.numberOfLines = 0
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         titleLabel.font = UIFont.systemFont(ofSize: 22, weight: .bold)
-        titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         priceLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         priceLabel.textColor = .systemGreen
         priceLabel.textAlignment = .center
-        priceLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        brandLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        brandLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        locationLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        locationLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        warrantyLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        warrantyLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        conditionLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        conditionLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        mercadoPagoLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        mercadoPagoLabel.translatesAutoresizingMaskIntoConstraints = false
-
-        freeShippingLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
-        freeShippingLabel.translatesAutoresizingMaskIntoConstraints = false
 
         let stackView = UIStackView(arrangedSubviews: [productImageView, titleLabel, priceLabel, brandLabel, locationLabel, warrantyLabel, conditionLabel, mercadoPagoLabel, freeShippingLabel])
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(stackView)
-        
+        contentView.addSubview(stackView)
+
+        // Activar restricciones para ScrollView y ContentView
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            productImageView.heightAnchor.constraint(equalToConstant: 250)
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+
+            stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20)
         ])
     }
     
@@ -100,7 +108,6 @@ class ProductDetailViewController: UIViewController {
             }
         }
     }
-
 
     private func updateUI(with product: ProductDetail) {
         titleLabel.text = product.title
@@ -120,5 +127,4 @@ class ProductDetailViewController: UIViewController {
             print("No se encontraron imágenes para este producto.")
         }
     }
-
 }

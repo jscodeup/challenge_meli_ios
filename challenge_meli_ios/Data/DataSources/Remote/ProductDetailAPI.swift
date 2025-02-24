@@ -4,36 +4,19 @@
 //
 //  Created by Mac on 23/02/25.
 //
-
 import Foundation
 
 class ProductDetailAPI {
-    
     func fetchProductDetail(productId: String, completion: @escaping (Result<ProductDetail, Error>) -> Void) {
-        let urlString = "https://api.mercadolibre.com/items/\(productId)"
+        let endpoint = "/items/\(productId)"
         
-        guard let url = URL(string: urlString) else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 400, userInfo: nil)))
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completion(.failure(error))
-                return
-            }
-            
-            guard let data = data else {
-                completion(.failure(NSError(domain: "No data", code: 404, userInfo: nil)))
-                return
-            }
-            
-            do {
-                let productDetail = try JSONDecoder().decode(ProductDetail.self, from: data)
+        NetworkManager.shared.fetchData(endpoint: endpoint) { (result: Result<ProductDetail, Error>) in
+            switch result {
+            case .success(let productDetail):
                 completion(.success(productDetail))
-            } catch {
+            case .failure(let error):
                 completion(.failure(error))
             }
-        }.resume()
+        }
     }
 }
